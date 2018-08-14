@@ -6,6 +6,9 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+
+    //x position
+    //y position
 };
 
 // Update the enemy's position, required method for game
@@ -14,6 +17,13 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+    //if not at boundary
+      //move forward
+      //increment x by speed*dt
+    //else
+      //reset position to start
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -25,11 +35,58 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+//player class
+  //Constructor
+    //properties
+      //sprite image
+      // x position
+      // y position
+    //methods
+      //update position
+        //check player x and y
+          //if collides with enemy
+            //reset to start position
+          //if position is at top row
+            //you win
+      //render
+        //draw player image based on current x and y pos
+      //handleInput
+        //listen for key presses
+        //update player's x or y pos based on key press
+      //reset
+        //set x and y to starting position
+
+class Player {
+  constructor() {
+    this.sprite = 'images/char-boy.png';
+    this.x = 0;
+    this.y = 0;
+  }
+
+  // draw the player sprite on current x and y position
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+
+  update() {
+
+  }
+
+};
+
+Player.update = function(){
+
+};
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+let allEnemies = [];
+//for each enemy, create enemy object and push into array
+let player = new Player;
+//initialize player object at start position
 
 
 // This listens for key presses and sends the keys to your
