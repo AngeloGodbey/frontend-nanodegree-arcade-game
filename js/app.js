@@ -1,14 +1,18 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-
-    //x position
-    //y position
+    this.sideStep = 101;
+    this.row = 83;
+    this.rightBoundary = this.sideStep * 5;
+    this.startPos = -this.sideStep;
+    this.x = x;
+    this.y = y - 23;
+    this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -23,7 +27,11 @@ Enemy.prototype.update = function(dt) {
       //increment x by speed*dt
     //else
       //reset position to start
-
+    if (this.x < this.rightBoundary) {
+      this.x += this.speed * dt;
+    } else {
+      this.x = this.startPos;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -59,8 +67,12 @@ Enemy.prototype.render = function() {
 class Player {
   constructor() {
     this.sprite = 'images/char-boy.png';
-    this.x = 0;
-    this.y = 0;
+    this.sideStep = 101;
+    this.step = 83;
+    this.startX = this.sideStep * 2;
+    this.startY = (this.step * 5) - 35;
+    this.x = this.startX;
+    this.y = this.startY;
   }
 
   // draw the player sprite on current x and y position
@@ -72,12 +84,37 @@ class Player {
 
   }
 
+  /**
+  * @param {string} input - key press that determines travel direction
+  */
+  handleInput(input) {
+    switch(input) {
+      case 'left':
+        if (this.x > 0) {
+          this.x -= this.sideStep;
+        }
+        break;
+      case 'up':
+        if (this.y > 0) {
+          this.y -= this.step;
+          console.log(this.x);
+          console.log(this.y);
+        }
+        break;
+      case 'right':
+        if (this.x < this.sideStep * 4) {
+          this.x += this.sideStep;
+        }
+        break;
+      case 'down':
+        if (this.y < this.startY) {
+          this.y += this.step;
+        }
+        break;
+     }
+  }
+
 };
-
-Player.update = function(){
-
-};
-
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -85,9 +122,14 @@ Player.update = function(){
 
 let allEnemies = [];
 //for each enemy, create enemy object and push into array
-let player = new Player;
-//initialize player object at start position
+let enemy1 = new Enemy(-101, 83, 400);
+let enemy2 = new Enemy(-101, 166, 200);
+let enemy3 = new Enemy(-101, 249, 300);
+let enemy4 = new Enemy(-101*1.5, 249, 100);
+allEnemies.push(enemy1, enemy2, enemy3, enemy4);
 
+//initialize player object at start position
+let player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
