@@ -1,3 +1,13 @@
 body {
     text-align: center;
+    background-color: rgb(53, 54, 43);
+    border: 10px ridge;
+}
+
+.header {
+  font-family: "Russo One", sans-serif;
+  font-size: 18px;
+  font-style: italic;
+  text-shadow: 2px 2px rgb(235, 192, 148);
+  color: rgb(15, 170, 135);
 }
