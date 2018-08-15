@@ -29,6 +29,38 @@ var Engine = (function(global) {
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
+    const createModal = () => {
+      let body = document.body,
+          head = document.head,
+          modal = document.createElement("div"),
+          modalStyle = document.createElement("style"),
+          modalFont = document.createElement("link"),
+          modalReset = '<button class="modal-reset">Reset</button>',
+          modalCSS = '.modal {position: absolute; background-color: rgb(164, 173, 161);\
+          color:rgba(201, 42, 186, 1); width: 100%; height: auto; top: 0%; \
+          font-family: "Luckiest Guy", cursive; font-size: 25px;\
+          font-style: italic; display: none;}';
+
+      modal.setAttribute("class", "modal");
+      modal.innerHTML = "You've won!  " + modalReset;
+      body.appendChild(modal);
+      modalFont.setAttribute("href", "https://fonts.googleapis.com/css?family=Luckiest+Guy");
+      modalFont.setAttribute("rel","stylesheet");
+      head.appendChild(modalFont);
+
+      if(modalStyle.styleSheet){
+        modalStyle.styleSheet.cssText = modalCSS;
+        console.log("CSS");
+      } else {
+        modalStyle.appendChild(document.createTextNode(modalCSS));
+        console.log(modalStyle);
+      }
+
+      head.appendChild(modalStyle);
+      }
+
+    createModal();
+
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -56,45 +88,21 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        if (player.winner === true) {
+        const checkWin = () => {
+          if (player.winner === true) {
+            let modal = document.querySelector(".modal");
            win.cancelAnimationFrame(paint);
-           createModal();
+           modal.setAttribute("style", "display: block;");
            document.querySelector(".modal-reset").addEventListener("click", () => {
-             document.querySelector(".modal").setAttribute("style", "display: none;");
+             modal.setAttribute("style", "display: none;");
              reset();
              win.requestAnimationFrame(main);
            });
          } else {
            paint = win.requestAnimationFrame(main);
          }
-    }
-
-    let createModal = () => {
-      let body = document.body,
-          head = document.head,
-          modal = document.createElement("div"),
-          modalStyle = document.createElement("style"),
-          modalFont = document.createElement("link"),
-          modalReset = '<button class="modal-reset">Reset</button>',
-          modalCSS = 'position: absolute; background-color: rgb(164, 173, 161);\
-          color:rgba(201, 42, 186, 1); width: 100%; height: auto; top: 0%; \
-          font-family: "Luckiest Guy", cursive; font-size: 25px;\
-          font-style: italic; transform: translate()';
-
-      modal.setAttribute("class", "modal");
-      modal.innerHTML = "You've won!  " + modalReset;
-      body.appendChild(modal);
-      modalFont.setAttribute("href", "https://fonts.googleapis.com/css?family=Luckiest+Guy");
-      modalFont.setAttribute("rel","stylesheet");
-      head.appendChild(modalFont);
-
-      if(modalStyle.styleSheet){
-        modalStyle.styleSheet.cssText = modalCSS;
-      } else {
-        modalStyle.appendChild(document.createTextNode(modalCSS));
-      }
-
-      modal.setAttribute("style", modalCSS);
+       }
+       checkWin();
     }
 
     /* This function does some initial setup that should only occur once,

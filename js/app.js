@@ -82,10 +82,6 @@ class Player {
   }
 
   update() {
-    let char = ['images/char-boy.png', 'images/char-cat-girl.png',
-    'images/char-horn-girl.png', 'images/char-pink-girl.png',
-    'images/char-princess-girl.png'];
-
     function getRandomInt(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
