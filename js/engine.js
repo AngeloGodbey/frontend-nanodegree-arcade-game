@@ -36,24 +36,27 @@ var Engine = (function(global) {
           modalStyle = document.createElement("style"),
           modalFont = document.createElement("link"),
           modalReset = '<button class="modal-reset">Reset</button>',
-          modalCSS = '.modal {position: absolute; background-color: rgb(164, 173, 161);\
-          color:rgba(201, 42, 186, 1); width: 100%; height: auto; top: 0%; \
+          modalCSS = '.modal {position: absolute; \
+          background-color: rgb(164, 173, 161); color:rgba(201, 42, 186, 1); \
+          width: 100%; height: auto; top: 0%; left: 0%; \
           font-family: "Luckiest Guy", cursive; font-size: 25px;\
-          font-style: italic; display: none;}';
+          font-style: italic; display: none;} .modal-reset { \
+          margin: 0 0 10px 15px; font-family: "Luckiest Guy", \
+          cursive; font-size: 15px; color:rgb(205, 55, 3); \
+          background-color: rgb(245, 237, 243); border-radius: 10px;}';
 
       modal.setAttribute("class", "modal");
-      modal.innerHTML = "You've won!  " + modalReset;
+      modal.innerHTML = "You've won!" + modalReset;
       body.appendChild(modal);
-      modalFont.setAttribute("href", "https://fonts.googleapis.com/css?family=Luckiest+Guy");
+      modalFont.setAttribute("href",
+      "https://fonts.googleapis.com/css?family=Russo+One|Luckiest+Guy");
       modalFont.setAttribute("rel","stylesheet");
       head.appendChild(modalFont);
 
       if(modalStyle.styleSheet){
         modalStyle.styleSheet.cssText = modalCSS;
-        console.log("CSS");
       } else {
         modalStyle.appendChild(document.createTextNode(modalCSS));
-        console.log(modalStyle);
       }
 
       head.appendChild(modalStyle);
@@ -93,7 +96,8 @@ var Engine = (function(global) {
             let modal = document.querySelector(".modal");
            win.cancelAnimationFrame(paint);
            modal.setAttribute("style", "display: block;");
-           document.querySelector(".modal-reset").addEventListener("click", () => {
+           document.querySelector(".modal-reset").addEventListener("click",
+           () => {
              modal.setAttribute("style", "display: none;");
              reset();
              win.requestAnimationFrame(main);
@@ -221,7 +225,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png'
     ]);
     Resources.onReady(init);
 
