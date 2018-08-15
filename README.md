@@ -17,7 +17,7 @@ This project is licensed under GNU GPLv3.
 ## Acknowledgments
 
 The following resources really helped me with this project.
-[Arcade Game Walkthrough Part 2- Pseudo Code](https://matthewcranford.com/arcade -game-walkthrough-part-2-pseudo-code/)
+[Arcade Game Walkthrough Part 2- Pseudo Code](https://matthewcranford.com/arcade-game-walkthrough-part-2-pseudo-code/)
 by Matthew Cranford.
 
 http://w3bits.com/javascript-modal/
