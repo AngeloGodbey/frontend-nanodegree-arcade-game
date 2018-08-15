@@ -103,6 +103,10 @@ class Player {
   }
   // reset player to start position
   reset() {
+    let char = ['images/char-boy.png', 'images/char-cat-girl.png',
+    'images/char-horn-girl.png', 'images/char-pink-girl.png',
+    'images/char-princess-girl.png'];
+    this.sprite = char[1];
     this.x = this.startX;
     this.y = this.startY;
     this.winner = false;
