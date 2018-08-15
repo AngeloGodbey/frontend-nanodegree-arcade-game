@@ -11,7 +11,7 @@ var Enemy = function(x, y, speed) {
     this.rightBoundary = this.sideStep * 5;
     this.startPos = -this.sideStep;
     this.x = x;
-    this.y = y - 23;
+    this.y = y - 35;
     this.speed = speed;
 };
 
@@ -73,6 +73,7 @@ class Player {
     this.startY = (this.step * 5) - 35;
     this.x = this.startX;
     this.y = this.startY;
+    this.winner = false;
   }
 
   // draw the player sprite on current x and y position
@@ -81,7 +82,34 @@ class Player {
   }
 
   update() {
+    let char = ['images/char-boy.png', 'images/char-cat-girl.png',
+    'images/char-horn-girl.png', 'images/char-pink-girl.png',
+    'images/char-princess-girl.png'];
 
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+    }
+
+    for (let enemy of allEnemies) {
+      // If the enemy collides with player or enters the same tile as player, reset player's position
+      if ((enemy.x + enemy.sideStep - 25 > this.x && enemy.x < this.x +
+        this.sideStep - 25) && this.y == enemy.y) {
+        this.reset();
+      }
+    }
+
+    // If player reaches the last tile, player wins
+    if (this.y == -35) {
+      this.winner = true;
+    }
+  }
+  // reset player to start position
+  reset() {
+    this.x = this.startX;
+    this.y = this.startY;
+    this.winner = false;
   }
 
   /**
@@ -122,7 +150,7 @@ class Player {
 
 let allEnemies = [];
 //for each enemy, create enemy object and push into array
-let enemy1 = new Enemy(-101, 83, 400);
+let enemy1 = new Enemy(-101, 83, 50);
 let enemy2 = new Enemy(-101, 166, 200);
 let enemy3 = new Enemy(-101, 249, 300);
 let enemy4 = new Enemy(-101*1.5, 249, 100);

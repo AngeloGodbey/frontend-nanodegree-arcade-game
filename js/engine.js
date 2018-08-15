@@ -9,7 +9,7 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
+ * This engine makes the canvas' context (ctx) object globally available to make
  * writing app.js a little simpler to work with.
  */
 
@@ -22,7 +22,8 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        paint;
 
     canvas.width = 505;
     canvas.height = 606;
@@ -55,7 +56,45 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        win.requestAnimationFrame(main);
+        if (player.winner === true) {
+           win.cancelAnimationFrame(paint);
+           createModal();
+           document.querySelector(".modal-reset").addEventListener("click", () => {
+             document.querySelector(".modal").setAttribute("style", "display: none;");
+             reset();
+             win.requestAnimationFrame(main);
+           });
+         } else {
+           paint = win.requestAnimationFrame(main);
+         }
+    }
+
+    let createModal = () => {
+      let body = document.body,
+          head = document.head,
+          modal = document.createElement("div"),
+          modalStyle = document.createElement("style"),
+          modalFont = document.createElement("link"),
+          modalReset = '<button class="modal-reset">Reset</button>',
+          modalCSS = 'position: absolute; background-color: rgb(164, 173, 161);\
+          color:rgba(201, 42, 186, 1); width: 100%; height: auto; top: 0%; \
+          font-family: "Luckiest Guy", cursive; font-size: 25px;\
+          font-style: italic; transform: translate()';
+
+      modal.setAttribute("class", "modal");
+      modal.innerHTML = "You've won!  " + modalReset;
+      body.appendChild(modal);
+      modalFont.setAttribute("href", "https://fonts.googleapis.com/css?family=Luckiest+Guy");
+      modalFont.setAttribute("rel","stylesheet");
+      head.appendChild(modalFont);
+
+      if(modalStyle.styleSheet){
+        modalStyle.styleSheet.cssText = modalCSS;
+      } else {
+        modalStyle.appendChild(document.createTextNode(modalCSS));
+      }
+
+      modal.setAttribute("style", modalCSS);
     }
 
     /* This function does some initial setup that should only occur once,
@@ -117,7 +156,7 @@ var Engine = (function(global) {
             numRows = 6,
             numCols = 5,
             row, col;
-        
+
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
@@ -162,6 +201,7 @@ var Engine = (function(global) {
      */
     function reset() {
         // noop
+        player.reset();
     }
 
     /* Go ahead and load all of the images we know we're going to need to
