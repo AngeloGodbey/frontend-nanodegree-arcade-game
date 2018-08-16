@@ -46,6 +46,8 @@ let Engine = (function(global) {
           background-color: rgb(245, 237, 243); border-radius: 10px;}';
 
       modal.setAttribute("class", "modal");
+      modal.setAttribute("role", "alertdialog");
+      modal.setAttribute("aria-labelledby", "winner");
       modal.innerHTML = "You've won!" + modalReset;
       body.appendChild(modal);
       modalFont.setAttribute("href",
@@ -94,16 +96,16 @@ let Engine = (function(global) {
         const checkWin = () => {
           if (player.winner === true) {
             let modal = document.querySelector(".modal");
-           win.cancelAnimationFrame(paint);
-           modal.setAttribute("style", "display: block;");
-           document.querySelector(".modal-reset").addEventListener("click",
-           () => {
-             modal.setAttribute("style", "display: none;");
-             reset();
-             win.requestAnimationFrame(main);
-           });
-         } else {
-           paint = win.requestAnimationFrame(main);
+            win.cancelAnimationFrame(paint);
+            modal.setAttribute("style", "display: block;");
+            document.querySelector(".modal-reset").addEventListener("click",
+            () => {
+              modal.setAttribute("style", "display: none;");
+              reset();
+              win.requestAnimationFrame(main);
+            });
+          } else {
+            paint = win.requestAnimationFrame(main);
          }
        }
        checkWin();
@@ -157,7 +159,7 @@ let Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        const rowImages = [
+        let rowImages = [
                 'images/water-block.png',   // Top row is water
                 'images/stone-block.png',   // Row 1 of 3 of stone
                 'images/stone-block.png',   // Row 2 of 3 of stone
