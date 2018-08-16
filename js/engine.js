@@ -37,7 +37,8 @@ let Engine = (function(global) {
           modalFont = document.createElement("link"),
           modalReset = '<button class="modal-reset">Reset</button>',
           modalCSS = '.modal {position: absolute; \
-          background-color: rgb(164, 173, 161); color:rgba(201, 42, 186, 1); \
+          background-color: rgb(164, 173, 161); \
+          color:rgba(201, 42, 186, 1);\
           width: 100%; height: auto; top: 0%; left: 0%; \
           font-family: "Luckiest Guy", cursive; font-size: 25px;\
           font-style: italic; display: none;} .modal-reset { \
@@ -93,6 +94,9 @@ let Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
+
+        // Check for winning condition. If condition is met, freeze game and
+        // show modal
         const checkWin = () => {
           if (player.winner === true) {
             let modal = document.querySelector(".modal");
