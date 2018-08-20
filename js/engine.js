@@ -49,7 +49,7 @@ let Engine = (function(global) {
       modal.setAttribute("class", "modal");
       modal.setAttribute("role", "alertdialog");
       modal.setAttribute("aria-labelledby", "winner");
-      modal.innerHTML = "You've won!" + modalReset;
+      modal.innerHTML = "<p style="padding: 25px 0px 10px 0px; margin: 0px;">You've won!" + modalReset + "</p>";
       body.appendChild(modal);
       modalFont.setAttribute("href",
       "https://fonts.googleapis.com/css?family=Russo+One|Luckiest+Guy");
